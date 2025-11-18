@@ -4,6 +4,54 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Security Audit v1.1.2:** Added Quality Assurance & Validation expert (Expert 11) to prevent hallucinations in security findings.
+  - **Anti-Hallucination Protocol:** Comprehensive validation system for security threat detection.
+  - **QA Expert** validates findings from critical detection experts (2-6) in real-time:
+    - Static Threat Hunter (backdoors/RCE)
+    - Secrets & Config Analyst (credentials/keys)
+    - Client Security Analyst (XSS/auth)
+    - Network & Telemetry Analyst (IOCs/endpoints)
+    - Forensics & Provenance Analyst (commit anomalies)
+  - Ensures all findings cite specific file paths and line numbers from repository.
+  - Validates IOCs (domains, IPs, URLs, ports) are extracted from actual code, not invented.
+  - Severity and confidence scores must be justified with observable code evidence.
+  - Distinguishes facts ("Found in src/api.js:42") from assumptions ("Potentially vulnerable if...").
+  - Flags and corrects hallucinated vulnerabilities, file paths, or IOCs.
+  - Marks incomplete evidence as "requires manual verification."
+  - Execution flow updated to include QA validation after each detection expert (steps 2-6).
+- **QUICKSTART.md**: New quick start guide with copy-paste examples for both Security and Architecture audits, troubleshooting tips, and workflow optimization.
+- **Architecture Audit** (`AI_ARCHITECTURE_AUDIT_PROMPT.md` v1.0.0): New Mixture-of-Experts prompt for iterative architecture review.
+  - **Anti-Hallucination Protocol (Critical):** Comprehensive validation system to prevent AI hallucinations and ensure evidence-based findings.
+  - **Quality Assurance & Validation Expert:** Seventh expert that runs after each of the 6 domain experts to validate findings in real-time.
+    - Verifies all claims cite specific files, directories, or code patterns from provided inputs.
+    - Distinguishes facts from assumptions with explicit language requirements.
+    - Ensures all 1-5 star scores are justified with concrete examples.
+    - Flags and corrects any hallucinated content (invented files, patterns, or structures).
+    - Maintains cross-expert consistency throughout the report.
+    - Runs final QA pass on complete report before delivery.
+  - Bootstrap section aligned with Security Audit format for consistency and ease of use.
+  - Copy-paste bootstrap prompts for Windsurf, Cursor, and other AI IDEs.
+  - YAML invocation parameters with ProjectPath, ReportsFolder (optional), Include/ExcludeGlobs.
+  - Preflight access checks to validate paths before starting analysis.
+  - Verification echo to confirm spec loading and parameters, including anti-hallucination protocol confirmation.
+  - Automatic file tree generation and key file identification from ProjectPath.
+  - Six specialized domain expert personas: Layering & Structure, Domain & Services, UI & Components, Types & Contracts, Testing & Testability, and Refactoring Strategy & Integration.
+  - Cumulative reporting where each expert builds on and refines previous findings with QA validation.
+  - Comprehensive 7-metric scorecard (Layer Separation, Flatness, Domain Reusability, Component Reusability, Type Safety, Testability, Dependency Inversion) with evidence-based scoring.
+  - Phased refactor roadmap (High Impact/Low Risk → Medium Term → Long Term).
+  - Before/After refactor examples with concrete implementation guidance citing real or clearly proposed files.
+  - Scalability assessment and reusable code percentage estimates.
+  - Manual override option for users who prefer to provide file tree and snippets directly.
+  - Explicit handling of missing information with "Not visible in provided data" disclaimers.
+
+### Changed
+- Updated README to reflect multiple audit types (Security and Architecture).
+- Enhanced README structure with separate sections for each audit's features, quickstart, and outputs.
+- Expanded educational goals to cover both security and architectural best practices.
+
 ## 1.1.1 — 2025-11-09
 ### Added
 - Purpose-first report section: "Application Purpose & Intended Use Summary" now appears at the top of the report, with cited evidence and uncertainty notes.
