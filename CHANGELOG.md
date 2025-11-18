@@ -7,6 +7,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ## [Unreleased]
 
 ### Added
+- **Architecture Audit - Deep-Dive Requirements (CRITICAL FIX):** Transformed audit from superficial file-tree analysis to comprehensive code review.
+  - **New Section 2.5 - Depth Requirements (MANDATORY):** Must read minimum 20-30 actual code files before making claims
+    - At least 5-8 components from different domains (not just names)
+    - At least 3-5 service implementations (full read)
+    - At least 2-3 hooks, contexts, utils, type files
+    - Code snippet requirements for every "problematic pattern" claim
+  - **New Section 3 - Analysis Coverage & Limitations (REQUIRED in all reports):** Transparency section that must include:
+    - Exact count and list of files actually read (not just scanned)
+    - Coverage percentages by area (components: X%, services: Y%)
+    - Explicit list of areas NOT analyzed
+    - Confidence levels by category (structural: 90%, code quality: 25%, etc.)
+    - Time Estimate Reality Check with 2-5x caveat for unanalyzed complexity
+  - **Updated QA Validation - New Check #6: Depth Verification:** QA must verify:
+    - Claims cite actual READ code (not just file names)
+    - "Duplicated logic" backed by 2+ code snippets
+    - "God components" cite actual file size/complexity
+    - Time estimates are RANGES with caveats (not confident points)
+    - Report includes Analysis Coverage section
+  - **Root Cause:** Original prompt allowed making architectural claims based on file names alone without reading implementations. Produced reports that looked comprehensive (C+ grade, detailed refactor plans with time estimates) but were based on <15% code inspection. Time estimates were misleadingly confident.
+  - **Impact:** Future reports will explicitly state what was/wasn't analyzed, confidence levels, and time estimate caveats. Users will know if they're getting a 40% confidence overview vs 85% deep audit.
 - **Architecture Audit - Project Structure Section (CRITICAL FIX):** Added mandatory "Project Structure" section to Final Report Structure (Section 2).
   - File tree visualization now REQUIRED in all architecture reports
   - Shows root directory, src/ structure, file counts, sizes, and visual problem indicators (🔴, ⚠️, ✅)
