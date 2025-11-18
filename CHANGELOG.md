@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ## [Unreleased]
 
 ### Added
+- **Post-Flight Verification:** Both audits now include mandatory verification steps after report generation to ensure files are written successfully.
+  - Security Audit: Verifies both Markdown and JSON reports exist with sizes and finding counts
+  - Architecture Audit: Verifies report exists with all 6 expert sections and scorecard
+  - Prevents silent failures where reports are not saved to disk
+  - Provides clear file paths, sizes, and completion status to users
 - **Security Audit v1.1.2:** Added Quality Assurance & Validation expert (Expert 11) to prevent hallucinations in security findings.
   - **Anti-Hallucination Protocol:** Comprehensive validation system for security threat detection.
   - **QA Expert** validates findings from critical detection experts (2-6) in real-time:

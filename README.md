@@ -16,6 +16,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - Never execute untrusted code; assume all code can be malicious until proven otherwise.
 - Run audits on a local snapshot with network access disabled.
 - Produce evidence-first, reproducible findings mapped to controls and regulations.
+- Post-flight verification ensures reports are always written successfully to disk.
 
 ## Features
 
@@ -46,6 +47,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - Examples and Third‑Party Tracking Detection Checklist.
 - Purpose‑first report: begins with an Application Purpose & Intended Use Summary derived from repo metadata to flag unexpected inclusions.
 - All security findings are evidence-based with explicit file/line citations.
+- **Post-flight verification:** Confirms both Markdown and JSON reports written successfully with file paths and sizes.
 
 ### Architecture Audit
 - **Anti-hallucination protocol:** Quality Assurance expert validates findings after each pass to ensure evidence-based conclusions.
@@ -68,6 +70,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - Before/After refactor examples with concrete implementation guidance.
 - Scalability assessment and reusable code percentage estimates.
 - All findings are evidence-based with explicit citations; assumptions clearly marked.
+- **Post-flight verification:** Confirms report written with all 6 expert sections and scorecard complete.
 
 ## Quickstart
 

@@ -46,6 +46,52 @@ Preflight Access Check (must pass before running):
 - ReportsFolder (if specified) exists or can be created and is writable.
 - If any check fails, abort with AccessError and remediation guidance.
 
+Post-Flight Verification (must confirm after completion):
+After generating the architecture report, ALWAYS verify and report:
+
+**If ReportsFolder was specified:**
+1. ✅ Confirm file written: Architecture report exists in ReportsFolder (e.g., "Architecture_Audit_Report_YYYY-MM-DD.md")
+2. ✅ Report file size (must be > 5 KB):
+   - Architecture_Audit_Report_YYYY-MM-DD.md: [X] KB
+3. ✅ Display absolute file path to user
+4. ✅ Confirm report contains all sections:
+   - Executive Summary ✓
+   - Scorecard with 7 metrics ✓
+   - All 6 expert findings ✓
+   - Refactoring roadmap ✓
+5. ⚠️ If file is missing, 0 bytes, or incomplete, ALERT USER IMMEDIATELY with error details
+
+**If ReportsFolder was NOT specified (inline delivery):**
+1. ✅ Confirm report was delivered in chat
+2. ✅ Report length > 2000 words
+3. ✅ All sections present (as above)
+4. ℹ️ Remind user: Report delivered inline; use ReportsFolder parameter to save to disk
+
+Verification Format (copy to user at end):
+```
+✅ POST-FLIGHT VERIFICATION PASSED
+
+Report Written:
+- Architecture_Audit_Report_YYYY-MM-DD.md: [absolute_path] ([size] KB)
+
+Report Completeness:
+- Executive Summary: ✓
+- Scorecard (7 metrics): ✓
+- Expert 1 (Layering): ✓
+- Expert 2 (Domain): ✓
+- Expert 3 (Components): ✓
+- Expert 4 (Types): ✓
+- Expert 5 (Testing): ✓
+- Expert 6 (Refactoring): ✓
+
+Summary:
+- Overall Grade: [grade]
+- Project: [ProjectPath]
+- Analysis Complete: [timestamp]
+```
+
+If verification fails, do NOT claim success. Alert user with specific error.
+
 Bootstrap prompts (copy-paste for Windsurf, Cursor, and other AI IDEs):
 
 ```
