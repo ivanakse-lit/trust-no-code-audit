@@ -57,8 +57,9 @@ After generating the architecture report, ALWAYS verify and report:
 4. ✅ Confirm report contains all sections:
    - Executive Summary ✓
    - **Project Structure (file tree)** ✓ ← CRITICAL
+   - **Analysis Coverage & Limitations** ✓ ← CRITICAL
    - Scorecard with 7 metrics ✓
-   - All 5 expert findings (Detailed Findings 4.1-4.5) ✓
+   - All 5 expert findings (Detailed Findings 5.1-5.5) ✓
    - Refactoring roadmap (3 phases) ✓
    - Example refactors ✓
    - Final summary ✓
@@ -80,15 +81,21 @@ Report Written:
 Report Completeness:
 - Executive Summary: ✓
 - Project Structure (file tree): ✓ ← REQUIRED
+- Analysis Coverage & Limitations: ✓ ← REQUIRED
 - Scorecard (7 metrics): ✓
-- Expert 1 (Layering - 4.1): ✓
-- Expert 2 (Domain - 4.2): ✓
-- Expert 3 (Components - 4.3): ✓
-- Expert 4 (Types - 4.4): ✓
-- Expert 5 (Testing - 4.5): ✓
-- Expert 6 (Refactoring Roadmap - Section 5): ✓
-- Example Refactors (Section 6): ✓
-- Final Summary (Section 7): ✓
+- Expert 1 (Layering - 5.1): ✓
+- Expert 2 (Domain - 5.2): ✓
+- Expert 3 (Components - 5.3): ✓
+- Expert 4 (Types - 5.4): ✓
+- Expert 5 (Testing - 5.5): ✓
+- Expert 6 (Refactoring Roadmap - Section 6): ✓
+- Example Refactors (Section 7): ✓
+- Final Summary (Section 8): ✓
+
+Analysis Depth:
+- Files Read: [X] files
+- Coverage: [XX]% of codebase
+- Confidence: [XX]% overall
 
 Summary:
 - Overall Grade: [grade]
@@ -191,7 +198,51 @@ You will be given:
 
 ---
 
-## 3️⃣ Core Objective
+## 2️⃣ Core Objective
+
+You are tasked with performing an **iterative, evidence-based, DEEP-DIVE architecture review** of a codebase. The goal is to produce a comprehensive report that:
+
+**CRITICAL REQUIREMENT: This is NOT a superficial file-tree analysis. You MUST read actual code to verify patterns before making claims.**
+
+### Depth Requirements (MANDATORY):
+
+Before making ANY architectural claims, you must:
+
+1. **Read Representative Code Samples (Minimum 20-30 files):**
+   - At least 5-8 components from different domains
+   - At least 3-5 service implementations (full read, not just names)
+   - At least 2-3 hook implementations
+   - At least 2-3 utility files with "business logic" names
+   - All context implementations
+   - All type definition files
+   - At least 2-3 integration implementations
+
+2. **Verify Patterns with Evidence:**
+   - Don't claim "duplicated logic" unless you've READ the duplicates
+   - Don't claim "god components" unless you've READ component implementations
+   - Don't claim "business logic in utils" unless you've READ the utils files
+   - Don't claim "no interfaces" unless you've READ service files
+   - Don't estimate complexity without reading actual code
+
+3. **Code Snippet Requirements:**
+   - Every "problematic pattern" claim must cite actual code (10-20 line snippets)
+   - Every "good practice" claim must show real examples from the codebase
+   - Refactor suggestions must reference actual implementations, not hypothetical ones
+
+4. **Time Estimate Reality Checks:**
+   - Estimates must be RANGES with caveats: "2-8 hours depending on complexity discovered"
+   - Mark estimates as "preliminary - requires code inspection to confirm"
+   - Never give confident time estimates based on file names alone
+
+**If you cannot read sufficient code (e.g., files too large, too many files), EXPLICITLY state:**
+- What percentage of the codebase you analyzed
+- Which areas you couldn't inspect
+- That time estimates are speculative
+- That deeper analysis is needed before refactoring
+
+---
+
+## 3️⃣ MoE System Responsibilities
 
 As an MoE system, you must:
 
@@ -368,6 +419,17 @@ This expert:
    - ✅ Refinements are clearly marked: "Earlier we assessed X, but given Y from this expert, Z is more accurate"
    - ❌ Flag contradictions between experts
 
+6. **Depth Verification (CRITICAL):**
+   - ✅ Claims about component quality must reference READ component files (not just names)
+   - ✅ Claims about service architecture must reference READ service implementations
+   - ✅ Claims about "duplicated logic" must cite 2+ actual code snippets showing duplication
+   - ✅ Claims about "god components" must cite actual component size/complexity from READ files
+   - ✅ Time estimates must be ranges with caveats (not confident point estimates)
+   - ✅ Report includes "Analysis Coverage" section stating what % of codebase was inspected
+   - ❌ Flag any architectural claim based ONLY on file names without reading implementations
+   - ❌ Flag any time estimate without "preliminary" or "requires code inspection" caveat
+   - ❌ Flag any "pattern" claim without actual code evidence from 2+ files
+
 **Outputs (added to internal validation log, not user-facing):**
 - **Validation Status:** Pass / Pass with Notes / Needs Revision
 - **Evidence Gaps:** List of claims needing more evidence or explicit assumptions
@@ -387,6 +449,7 @@ This expert:
 - **Verifies all required sections are present:**
   - ✅ Executive Summary with grade
   - ✅ **Project Structure** with file tree visualization (CRITICAL - must not be omitted)
+  - ✅ **Analysis Coverage & Limitations** (CRITICAL - must include files read, depth %, confidence %, time caveats)
   - ✅ Scorecard with 7 metrics
   - ✅ Detailed Findings (all 5 expert areas)
   - ✅ Refactor Roadmap (3 phases)
@@ -454,7 +517,80 @@ project/
 
 This section provides essential context for understanding all subsequent findings.
 
-### 3. Scorecard
+### 3. Analysis Coverage & Limitations (REQUIRED)
+
+**CRITICAL:** This section provides transparency about the depth and completeness of the analysis.
+
+Must include:
+
+1. **Files Analyzed (Actual Code Read):**
+   - List the specific files you read completely (not just scanned names)
+   - Example: "Read 28 files completely: App.tsx, 8 components (Dashboard.tsx, UserProfile.tsx...), 5 services (AuthService.ts...), 3 hooks, 2 contexts, All type files, 3 utils"
+   
+2. **Analysis Depth:**
+   - Components: "Read 8/60+ components (13% sample)"
+   - Services: "Read 5/10 services (50% coverage)"
+   - Hooks: "Read 3/5 hooks (60% coverage)"
+   - Types: "Read all 4 type files (100% coverage)"
+   - Utils: "Read 2/7 utils files (29% coverage)"
+
+3. **Areas NOT Analyzed:**
+   - List directories/files you did NOT read
+   - Example: "Did NOT read: integration/* components (13 subdirs), payments/* components, matching/* components, messages/* components"
+
+4. **Confidence Level:**
+   - Overall: XX% confident in findings
+   - Breakdown by area:
+     - Structural patterns: 90% (based on App.tsx + configs)
+     - Component quality: 30% (read only 13% sample)
+     - Service architecture: 50% (read 50% of services)
+     - Actual code quality: 25% (limited implementation reading)
+
+5. **Time Estimate Caveat:**
+   ```
+   ⚠️ IMPORTANT: All time estimates are PRELIMINARY RANGES based on limited code inspection.
+   Actual refactoring time may be 2-5x longer depending on:
+   - Hidden complexities in unread files
+   - Coupling between components
+   - Test coverage requirements
+   - Technical debt in services/utils not yet inspected
+   
+   RECOMMENDATION: Conduct deeper code review before committing to timeline.
+   ```
+
+**Example format:**
+```
+## Analysis Coverage & Limitations
+
+### What Was Analyzed (28 files read completely)
+✅ Configuration files (4/4): package.json, tsconfig.json, vite.config.ts, tailwind.config.js
+✅ Root component: App.tsx (367 lines)
+✅ Components (8/60+ = 13%): Dashboard.tsx, UserProfile.tsx, Analytics.tsx...
+✅ Services (5/10 = 50%): badgeService.ts, behavioralRewards.ts...
+✅ Hooks (3/5 = 60%): useApi.ts, useTokens.ts, usePerformance.ts
+✅ Contexts (2/2 = 100%): AuthContext.tsx, UserStatusContext.tsx
+✅ Types (4/4 = 100%): All type files
+✅ Utils (2/7 = 29%): rewardLogic.ts, matchingCalculator.ts
+
+### What Was NOT Analyzed
+❌ Integration components: All 13 integration subdirectories (crm/, api/, erp/, etc.)
+❌ Domain components: partners/, payments/, matching/, messages/, marketplace/, etc.
+❌ Remaining hooks (2), services (5), utils (5)
+
+### Confidence Levels
+- **Structural architecture:** 90% (strong - based on App.tsx, configs, file tree)
+- **Component patterns:** 30% (weak - only 13% sample read)
+- **Service architecture:** 50% (moderate - 50% services read)
+- **Code quality:** 25% (weak - limited implementation inspection)
+- **Overall:** 40% confidence this analysis represents the full codebase
+
+### Time Estimate Reality Check
+⚠️ All time estimates are PRELIMINARY RANGES (e.g., "2-8 hours").
+Actual time may be 2-5x longer due to unanalyzed complexity.
+Recommend full code review before committing to timeline.
+```
+
+### 4. Scorecard
 
 A table using 1–5 stars (⭐) with one-line headlines:
 
@@ -468,17 +604,17 @@ A table using 1–5 stars (⭐) with one-line headlines:
 | Test Coverage/Testability | ⭐..⭐     | ...      |
 | Dependency Inversion      | ⭐..⭐     | ...      |
 
-### 4. Detailed Findings by Area
+### 5. Detailed Findings by Area
 
 Each subsection must include **what is good**, **what is problematic**, and **refactor suggestions**.
 
-- **4.1 Layering & Structure** (Expert 1 + later refinements)
-- **4.2 Domain Modeling & Services** (Expert 2 + refinements)
-- **4.3 Components & UI** (Expert 3 + refinements)
-- **4.4 Types & Schema** (Expert 4 + refinements)
-- **4.5 Testing & Testability** (Expert 5 + refinements)
+- **5.1 Layering & Structure** (Expert 1 + later refinements)
+- **5.2 Domain Modeling & Services** (Expert 2 + refinements)
+- **5.3 Components & UI** (Expert 3 + refinements)
+- **5.4 Types & Schema** (Expert 4 + refinements)
+- **5.5 Testing & Testability** (Expert 5 + refinements)
 
-### 5. Refactor Roadmap (Prioritized)
+### 6. Refactor Roadmap (Prioritized)
 
 From Expert 6, integrating all earlier inputs:
 
@@ -493,7 +629,7 @@ From Expert 6, integrating all earlier inputs:
 
 #### **Phase 3 – Long Term / Nice-to-have**
 
-### 6. Example Refactors (Before/After)
+### 7. Example Refactors (Before/After)
 
 2–4 examples (they can be partial/pseudo code), such as:
 
@@ -501,7 +637,7 @@ From Expert 6, integrating all earlier inputs:
 - Scattered pitch/audio logic → extracted into a composable/domain service.
 - Direct Supabase/DB calls in UI → refactored through an interface-based service.
 
-### 7. Final Summary
+### 8. Final Summary
 
 A short concluding section that:
 
