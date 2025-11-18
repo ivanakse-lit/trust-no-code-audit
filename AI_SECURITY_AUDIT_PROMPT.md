@@ -55,6 +55,34 @@ Preflight Access Check (must pass before running):
 - Optional: .git/ is present if provenance checks are desired (else mark "not available").
 - If any check fails, abort with AccessError and remediation guidance: provide a readable local snapshot path and a writable ReportsFolder, then re-run.
 
+Post-Flight Verification (must confirm after completion):
+After writing reports, ALWAYS verify and report:
+1. ✅ Confirm file written: "Security & Architecture.md" exists in ReportsFolder
+2. ✅ Confirm file written: "security_findings.json" exists in ReportsFolder
+3. ✅ Report file sizes (must be > 0 bytes):
+   - Security & Architecture.md: [X] KB
+   - security_findings.json: [X] KB
+4. ✅ Display absolute file paths to user
+5. ✅ Confirm total findings count from JSON
+6. ⚠️ If ANY file is missing or 0 bytes, ALERT USER IMMEDIATELY with error details
+
+Verification Format (copy to user at end):
+```
+✅ POST-FLIGHT VERIFICATION PASSED
+
+Reports Written:
+- Security & Architecture.md: [absolute_path] ([size] KB)
+- security_findings.json: [absolute_path] ([size] KB)
+
+Summary:
+- Total Findings: [count]
+- Critical: [count] | High: [count] | Medium: [count] | Low: [count]
+- Repository: [RepositoryPath]
+- Analysis Complete: [timestamp]
+```
+
+If verification fails, do NOT claim success. Alert user with specific error.
+
 Bootstrap prompts (copy‑paste for Cursor, Windsurf, and other MoE IDEs):
   
     ```
