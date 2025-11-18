@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ## [Unreleased]
 
 ### Added
+- **Architecture Audit - Project Structure Section (CRITICAL FIX):** Added mandatory "Project Structure" section to Final Report Structure (Section 2).
+  - File tree visualization now REQUIRED in all architecture reports
+  - Shows root directory, src/ structure, file counts, sizes, and visual problem indicators (🔴, ⚠️, ✅)
+  - Highlights missing directories (domain/, layouts/, routes/), clutter, and test organization issues
+  - QA validation now checks that Project Structure section is present and complete
+  - Post-flight verification updated to confirm file tree is included
+  - **Root Cause:** Original prompt didn't require file structure; QA expert didn't check for it
+  - **Fix:** Added as Section 2 with detailed requirements; QA final pass now verifies presence
 - **Post-Flight Verification:** Both audits now include mandatory verification steps after report generation to ensure files are written successfully.
   - Security Audit: Verifies both Markdown and JSON reports exist with sizes and finding counts
   - Architecture Audit: Verifies report exists with all 6 expert sections and scorecard

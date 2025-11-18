@@ -56,9 +56,12 @@ After generating the architecture report, ALWAYS verify and report:
 3. ✅ Display absolute file path to user
 4. ✅ Confirm report contains all sections:
    - Executive Summary ✓
+   - **Project Structure (file tree)** ✓ ← CRITICAL
    - Scorecard with 7 metrics ✓
-   - All 6 expert findings ✓
-   - Refactoring roadmap ✓
+   - All 5 expert findings (Detailed Findings 4.1-4.5) ✓
+   - Refactoring roadmap (3 phases) ✓
+   - Example refactors ✓
+   - Final summary ✓
 5. ⚠️ If file is missing, 0 bytes, or incomplete, ALERT USER IMMEDIATELY with error details
 
 **If ReportsFolder was NOT specified (inline delivery):**
@@ -76,13 +79,16 @@ Report Written:
 
 Report Completeness:
 - Executive Summary: ✓
+- Project Structure (file tree): ✓ ← REQUIRED
 - Scorecard (7 metrics): ✓
-- Expert 1 (Layering): ✓
-- Expert 2 (Domain): ✓
-- Expert 3 (Components): ✓
-- Expert 4 (Types): ✓
-- Expert 5 (Testing): ✓
-- Expert 6 (Refactoring): ✓
+- Expert 1 (Layering - 4.1): ✓
+- Expert 2 (Domain - 4.2): ✓
+- Expert 3 (Components - 4.3): ✓
+- Expert 4 (Types - 4.4): ✓
+- Expert 5 (Testing - 4.5): ✓
+- Expert 6 (Refactoring Roadmap - Section 5): ✓
+- Example Refactors (Section 6): ✓
+- Final Summary (Section 7): ✓
 
 Summary:
 - Overall Grade: [grade]
@@ -378,8 +384,24 @@ This expert:
 
 **Final QA Pass (after Expert 6):**
 - Reviews the complete report end-to-end
+- **Verifies all required sections are present:**
+  - ✅ Executive Summary with grade
+  - ✅ **Project Structure** with file tree visualization (CRITICAL - must not be omitted)
+  - ✅ Scorecard with 7 metrics
+  - ✅ Detailed Findings (all 5 expert areas)
+  - ✅ Refactor Roadmap (3 phases)
+  - ✅ Example Refactors (2-4 examples)
+  - ✅ Final Summary
 - Ensures Executive Summary accurately reflects validated findings
 - Verifies scorecard aligns with evidence
+- **Confirms Project Structure section includes:**
+  - File tree visualization (ASCII or structured markdown)
+  - Root directory with config files
+  - All major src/ subdirectories
+  - File counts and sizes for key files
+  - Visual indicators for problems (🔴, ⚠️, ✅)
+  - Missing directories highlighted (e.g., no domain/, no layouts/)
+- If Project Structure section is missing, FAIL validation and add it before delivery
 - Confirms all refactor examples cite real or clearly proposed files
 
 ---
@@ -397,7 +419,42 @@ The final output must follow this structure **exactly** and include contribution
 - One-line grade, e.g.:
   > **Overall Architecture Grade: B (3.5/5)**
 
-### 2. Scorecard
+### 2. Project Structure (REQUIRED)
+
+**CRITICAL:** This section must visualize the project's file/folder structure to provide context for all findings.
+
+- Display the file tree using ASCII tree format or structured markdown
+- Include:
+  - Root directory with key config files (package.json, tsconfig.json, etc.)
+  - `src/` directory with all major subdirectories (components/, services/, hooks/, utils/, types/, etc.)
+  - File counts per directory (e.g., "components/admin/ (4 components)")
+  - File sizes for key files (e.g., "App.tsx (367 lines)")
+  - Visual indicators for issues (🔴 for problems, ⚠️ for warnings, ✅ for good practices)
+- Highlight architectural issues visible in the structure:
+  - Missing directories (no domain/, no layouts/, no routes/)
+  - Clutter (server files at root)
+  - Test organization (or lack thereof)
+- Optionally include a "Recommended Structure" showing what the architecture should look like after refactoring
+
+**Example format:**
+```
+project/
+├── 📄 Configuration Files
+│   ├── package.json
+│   └── tsconfig.json (⚠️ strict: false)
+├── 📂 src/
+│   ├── App.tsx (367 lines) 🔴
+│   ├── components/
+│   │   ├── admin/ (4 components)
+│   │   └── common/ (15+ components)
+│   ├── services/
+│   └── utils/
+└── 🔴 6 server files at root
+```
+
+This section provides essential context for understanding all subsequent findings.
+
+### 3. Scorecard
 
 A table using 1–5 stars (⭐) with one-line headlines:
 
@@ -411,17 +468,17 @@ A table using 1–5 stars (⭐) with one-line headlines:
 | Test Coverage/Testability | ⭐..⭐     | ...      |
 | Dependency Inversion      | ⭐..⭐     | ...      |
 
-### 3. Detailed Findings by Area
+### 4. Detailed Findings by Area
 
 Each subsection must include **what is good**, **what is problematic**, and **refactor suggestions**.
 
-- **3.1 Layering & Structure** (Expert 1 + later refinements)
-- **3.2 Domain Modeling & Services** (Expert 2 + refinements)
-- **3.3 Components & UI** (Expert 3 + refinements)
-- **3.4 Types & Schema** (Expert 4 + refinements)
-- **3.5 Testing & Testability** (Expert 5 + refinements)
+- **4.1 Layering & Structure** (Expert 1 + later refinements)
+- **4.2 Domain Modeling & Services** (Expert 2 + refinements)
+- **4.3 Components & UI** (Expert 3 + refinements)
+- **4.4 Types & Schema** (Expert 4 + refinements)
+- **4.5 Testing & Testability** (Expert 5 + refinements)
 
-### 4. Refactor Roadmap (Prioritized)
+### 5. Refactor Roadmap (Prioritized)
 
 From Expert 6, integrating all earlier inputs:
 
@@ -436,7 +493,7 @@ From Expert 6, integrating all earlier inputs:
 
 #### **Phase 3 – Long Term / Nice-to-have**
 
-### 5. Example Refactors (Before/After)
+### 6. Example Refactors (Before/After)
 
 2–4 examples (they can be partial/pseudo code), such as:
 
@@ -444,7 +501,7 @@ From Expert 6, integrating all earlier inputs:
 - Scattered pitch/audio logic → extracted into a composable/domain service.
 - Direct Supabase/DB calls in UI → refactored through an interface-based service.
 
-### 6. Final Summary
+### 7. Final Summary
 
 A short concluding section that:
 
