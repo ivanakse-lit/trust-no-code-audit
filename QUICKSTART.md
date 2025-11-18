@@ -153,6 +153,16 @@ Skip automatic file gathering by providing your own data:
 - Security Audit: Prepare your own file list
 - Architecture Audit: Provide `{{FILE_TREE_OR_STRUCTURE}}` and `{{KEY_FILES_OR_SNIPPETS}}`
 
+### 5. **Always Check Post-Flight Verification**
+After the audit completes, look for the verification message:
+```
+✅ POST-FLIGHT VERIFICATION PASSED
+
+Reports Written:
+- [Report Name]: [absolute_path] ([size] KB)
+```
+**If you don't see this message, the report may not have been saved!** Ask the AI to confirm the file location and re-write if needed.
+
 ---
 
 ## ⚡ Fastest Workflow (2 Steps)
