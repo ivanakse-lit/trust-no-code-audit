@@ -7,6 +7,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 ## [Unreleased]
 
 ### Added
+- **Production Readiness Audit** (`AI_PRODUCTION_AUDIT_PROMPT.md` v1.0.0): New Mixture-of-Experts prompt for production deployment readiness assessment.
+  - **Anti-Hallucination Protocol:** Comprehensive validation system to prevent AI hallucinations and ensure evidence-based findings.
+  - **Quality Assurance & Validation Expert:** Sixth expert that runs after each of the 5 domain experts to validate findings in real-time.
+    - Verifies all findings cite specific files and line numbers from the codebase.
+    - Confirms existence of claimed issues (e.g., missing dependencies in package.json).
+    - Filters out generic advice not applicable to the project's tech stack.
+    - Marks assumptions explicitly when code is not fully visible.
+    - Runs final QA pass on complete report before delivery.
+  - Bootstrap section with copy-paste prompts for AI IDEs (Windsurf, Cursor, etc.).
+  - YAML invocation parameters with ProjectPath, ReportsFolder (optional), Include/ExcludeGlobs.
+  - Preflight access checks to validate paths before starting analysis.
+  - Verification echo to confirm spec loading, parameters, and anti-hallucination protocol.
+  - Automatic file tree generation and key file identification (configs, dockerfiles, error handlers, build scripts).
+  - Five specialized domain expert personas:
+    1. **Performance & Resource Efficiency Expert:** Identifies bottlenecks, N+1 queries, missing indexes, large bundle sizes, memory leaks, over-fetching.
+    2. **Reliability & Error Handling Expert:** Evaluates error boundaries, structured logging, health checks, crash recovery, graceful degradation.
+    3. **Operational Resilience Expert:** Assesses rate limiting, timeouts, circuit breakers, retries with exponential backoff, backpressure handling.
+    4. **Configuration & 12-Factor Expert:** Validates environment variable usage, secrets management, feature flags, dev/prod parity.
+    5. **Maintainability & CI/CD Expert:** Reviews dependency management, lockfiles, linting, build pipeline, documentation.
+  - Production readiness scorecard with 5 key metrics (Performance, Reliability, Resilience, Configuration, Maintainability) rated 1-5 stars.
+  - Overall readiness grade: Production Ready / Needs Hardening / Prototype Only.
+  - Identifies top 3 critical launch blockers that must be fixed before deployment.
+  - Phased hardening roadmap:
+    - Phase 1: Pre-Launch Blockers (Must Fix)
+    - Phase 2: Post-Launch Optimization (Nice to Have)
+    - Phase 3: Scale-Up Architecture (Long Term)
+  - All findings are evidence-based with explicit file/line citations; assumptions clearly marked.
+  - Post-flight verification confirms report written with all 5 expert sections and scorecard complete.
 - **Architecture Audit - Deep-Dive Requirements (CRITICAL FIX):** Transformed audit from superficial file-tree analysis to comprehensive code review.
   - **New Section 2.5 - Depth Requirements (MANDATORY):** Must read minimum 20-30 actual code files before making claims
     - At least 5-8 components from different domains (not just names)
@@ -81,9 +109,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
   - Explicit handling of missing information with "Not visible in provided data" disclaimers.
 
 ### Changed
-- Updated README to reflect multiple audit types (Security and Architecture).
-- Enhanced README structure with separate sections for each audit's features, quickstart, and outputs.
-- Expanded educational goals to cover both security and architectural best practices.
+- Updated README to reflect multiple audit types (Security, Architecture, and Production Readiness).
+- Enhanced README structure with separate sections for each audit's features, quickstart, parameters, and outputs.
+- Expanded educational goals to cover security, architectural, and production deployment best practices.
 
 ## 1.1.1 — 2025-11-09
 ### Added

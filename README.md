@@ -12,6 +12,9 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 ### Architecture Audit
 [AI_ARCHITECTURE_AUDIT_PROMPT.md](./AI_ARCHITECTURE_AUDIT_PROMPT.md) version 1.0.0 — An iterative architecture review that analyzes layering, domain modeling, component structure, type safety, and testability to produce actionable refactoring roadmaps.
 
+### Production Readiness Audit
+[AI_PRODUCTION_AUDIT_PROMPT.md](./AI_PRODUCTION_AUDIT_PROMPT.md) version 1.0.0 — A production deployment readiness assessment that evaluates performance, reliability, operational resilience, configuration management, and CI/CD maturity to identify launch blockers and hardening priorities.
+
 ## Why "Trust No Code"
 - Never execute untrusted code; assume all code can be malicious until proven otherwise.
 - Run audits on a local snapshot with network access disabled.
@@ -72,6 +75,27 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - All findings are evidence-based with explicit citations; assumptions clearly marked.
 - **Post-flight verification:** Confirms report written with all 6 expert sections and scorecard complete.
 
+### Production Readiness Audit
+- **Anti-hallucination protocol:** Quality Assurance expert validates findings after each pass to ensure evidence-based conclusions.
+- Mixture-of-Experts pipeline across five production domains:
+  1. Performance & Resource Efficiency Expert
+  2. Reliability & Error Handling Expert
+  3. Operational Resilience Expert
+  4. Configuration & 12-Factor Expert
+  5. Maintainability & CI/CD Expert
+- **Quality Assurance & Validation Expert** validates each expert's findings to:
+  - Verify all findings cite specific files/lines from the codebase
+  - Confirm existence of claimed issues (e.g., missing dependencies in package.json)
+  - Filter out generic advice not applicable to the project's tech stack
+  - Mark assumptions explicitly when code is not fully visible
+- Production readiness scorecard with 5 key metrics (1-5 stars).
+- Identifies critical launch blockers vs post-launch optimizations.
+- Phased hardening roadmap (Pre-Launch Blockers → Post-Launch → Scale-Up).
+- Focuses on real-world deployment concerns: database N+1 queries, missing rate limiting, lack of health checks, hardcoded configs, memory leaks.
+- Overall readiness grade: Production Ready / Needs Hardening / Prototype Only.
+- All findings are evidence-based with explicit file/line citations.
+- **Post-flight verification:** Confirms report written with all 5 expert sections and scorecard complete.
+
 ## Quickstart
 
 ### Security Audit
@@ -95,11 +119,38 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 
 **Manual Mode:** If you prefer, you can manually provide `{{FILE_TREE_OR_STRUCTURE}}` and `{{KEY_FILES_OR_SNIPPETS}}` instead of using ProjectPath.
 
+### Production Readiness Audit
+1) Open `AI_PRODUCTION_AUDIT_PROMPT.md` in your IDE/agent.
+2) Copy the **Bootstrap prompt** from the file.
+3) Replace `<PROMPT_FILE_PATH>` with the path to the audit file.
+4) Replace `<PROJECT_ROOT_ABSOLUTE_PATH>` with your project path.
+5) (Optional) Replace `<REPORTS_FOLDER_ABSOLUTE_PATH>` or omit for inline report.
+6) Submit to your AI assistant — it will automatically:
+   - Echo confirmation with version and experts roster
+   - Scan the project structure
+   - Identify key production-related files (configs, dockerfiles, error handlers, build scripts)
+   - Run all 5 expert analysis passes
+   - Deliver the comprehensive production readiness report with critical launch blockers
+
 ---
 
 ## Invocation Parameters
 
 ### Architecture Audit — Parameters Template
+```yaml
+ProjectPath: /absolute/path/to/project-root
+ReportsFolder: /absolute/path/to/reports  # optional: omit for inline report
+IncludeGlobs: ["**/*"]
+ExcludeGlobs: [".git/**", "node_modules/**", "**/dist/**", "**/build/**", "**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.gif", "**/*.webp", "**/*.ico", "**/*.zip", "**/*.exe", "**/*.dll", "**/*.so"]
+MaxFileSizeMB: 2
+```
+
+**Preflight access check:**
+- Spec file readable.
+- ProjectPath exists and is readable.
+- ReportsFolder (if specified) exists or is creatable and writable.
+
+### Production Readiness Audit — Parameters Template
 ```yaml
 ProjectPath: /absolute/path/to/project-root
 ReportsFolder: /absolute/path/to/reports  # optional: omit for inline report
@@ -146,6 +197,23 @@ GitMetadata: auto
   - Phased refactor roadmap (High/Medium/Long-term priorities)
   - Before/After refactor examples
   - Scalability assessment and reusability estimates
+
+### Production Readiness Audit
+- `Production_Readiness_Report_YYYY-MM-DD.md` — comprehensive production deployment assessment.
+- Report includes:
+  - Executive Summary with overall readiness grade (Production Ready / Needs Hardening / Prototype Only)
+  - Top 3 critical launch blockers
+  - 5-metric production readiness scorecard (⭐ 1-5 ratings): Performance, Reliability, Resilience, Configuration, Maintainability
+  - Detailed findings by expert area:
+    - Performance & Resource Efficiency (N+1 queries, bundle sizes, memory leaks)
+    - Reliability & Error Handling (error boundaries, logging, health checks)
+    - Operational Resilience (rate limiting, timeouts, circuit breakers)
+    - Configuration & 12-Factor (env vars, secrets management, feature flags)
+    - Maintainability & CI/CD (dependency management, linting, build pipeline)
+  - Phased hardening roadmap:
+    - Phase 1: Pre-Launch Blockers (Must Fix)
+    - Phase 2: Post-Launch Optimization (Nice to Have)
+    - Phase 3: Scale-Up Architecture (Long Term)
 
 ## Security Audit — Evidence Format
 ```json
