@@ -7,7 +7,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 ## Available Audits
 
 ### Security Audit
-[AI_SECURITY_AUDIT_PROMPT.md](./AI_SECURITY_AUDIT_PROMPT.md) version 1.1.2 — An offline, evidence-first security audit that detects backdoors, secrets, risky client patterns, and third‑party tracking with anti-hallucination validation.
+[AI_SECURITY_AUDIT_PROMPT.md](./AI_SECURITY_AUDIT_PROMPT.md) version 1.3.0 — An offline, evidence-first security audit that detects backdoors, secrets, risky client patterns, third‑party tracking, and **AI-generated threats ("vibe code" attacks)** with anti-hallucination validation.
 
 ### Architecture Audit
 [AI_ARCHITECTURE_AUDIT_PROMPT.md](./AI_ARCHITECTURE_AUDIT_PROMPT.md) version 1.0.0 — An iterative architecture review that analyzes layering, domain modeling, component structure, type safety, and testability to produce actionable refactoring roadmaps.
@@ -28,16 +28,17 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - Offline only, read-only workflow (no code execution, no network calls).
 - Mixture-of-Experts pipeline:
   1. Repository Mapper
-  2. Static Threat Hunter
-  3. Secrets & Config Analyst
-  4. Client Security Analyst
+  2. Static Threat Hunter (includes AI-generated exploit patterns)
+  3. Secrets & Config Analyst (includes secure API communication)
+  4. Client Security Analyst (includes input validation with Zod/Yup/Joi)
   5. Network & Telemetry Analyst
   6. Forensics & Provenance Analyst
   7. Compliance & Controls Mapper
   8. Deduplicator & Scoring
   9. Remediation Planner
   10. Report Writer
-  11. **Quality Assurance & Validation** (runs after detection experts 2-6)
+  11. Quality Assurance & Validation (runs after detection experts)
+  12. **AI-Generated Threat Analyst** ("vibe code" detection)
 - **Quality Assurance & Validation Expert** validates critical security findings to:
   - Verify all findings cite specific file paths and line numbers
   - Ensure IOCs (domains, IPs, URLs, ports) are extracted from code, not invented
@@ -48,6 +49,11 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 - Shared evidence format with severity and confidence.
 - Deterministic ordering and critical gating.
 - Examples and Third‑Party Tracking Detection Checklist.
+- **AI-Generated Threat Detection** ("vibe code" attacks):
+  - Polymorphic exploits and CVE-based code
+  - Ransomware patterns (file encryption, data exfiltration)
+  - Credential harvesting and brute force infrastructure
+  - C2 beacons, reverse shells, self-modifying code
 - Purpose‑first report: begins with an Application Purpose & Intended Use Summary derived from repo metadata to flag unexpected inclusions.
 - All security findings are evidence-based with explicit file/line citations.
 - **Post-flight verification:** Confirms both Markdown and JSON reports written successfully with file paths and sizes.
