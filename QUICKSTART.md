@@ -27,7 +27,7 @@ Paste the customized prompt and let the MoE system do the work.
 ## 🔐 Security Audit Example
 
 ```
-Read and follow the audit spec at "B:\Dev\Audits\AI_SECURITY_AUDIT_PROMPT.md".
+Read and follow the audit spec at "<PATH_TO_AUDIT_PROMPTS>/AI_SECURITY_AUDIT_PROMPT.md".
 After reading, reply with this confirmation:
 - SpecTitle: "AI Security Audit Mixture-of-Experts Orchestration Prompt"
 - Version: 1.1.2
@@ -51,7 +51,7 @@ Then run the MoE flow per the spec with QA validation after critical detection e
 ## 🏗️ Architecture Audit Example
 
 ```
-Read and follow the architecture audit spec at "B:\Dev\Audits\AI_ARCHITECTURE_AUDIT_PROMPT.md".
+Read and follow the architecture audit spec at "<PATH_TO_AUDIT_PROMPTS>/AI_ARCHITECTURE_AUDIT_PROMPT.md".
 After reading, reply with this confirmation:
 - SpecTitle: "AI Architecture Audit Mixture-of-Experts Orchestration Prompt"
 - Version: 1.0.0

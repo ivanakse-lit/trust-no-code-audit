@@ -378,7 +378,7 @@ This eliminates the manual friction of editing file paths in prompt templates an
 │  ┌────────────────────────────────────────────────────────────────────────┐  │
 │  │                        GENERATED PROMPT                                 │  │
 │  │  ┌──────────────────────────────────────────────────────────────────┐  │  │
-│  │  │ Read and follow the audit spec at "B:\Dev\Audits\AI_SECURITY..." │  │  │
+│  │  │ Read and follow the audit spec at "<PROMPTS_PATH>/AI_SECURITY..." │  │  │
 │  │  │ After reading, reply with this confirmation:                     │  │  │
 │  │  │ - SpecTitle: "AI Security Audit..."                              │  │  │
 │  │  │ ...                                                              │  │  │
