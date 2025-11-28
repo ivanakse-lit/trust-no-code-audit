@@ -222,7 +222,7 @@ Handoffs:
 - All experts may consult the Examples and Tracking Checklist for pattern anchoring.
 
 Objective:
-- Perform a read-only, offline static security audit of this repository: B:\Dev\te-aho-o-te-kahu-cancer\MVP
+- Perform a read-only, offline static security audit of this repository: {{RepositoryPath}}
 - Do not execute any code, do not install dependencies, do not modify files.
 - Explicitly prioritize threat discovery:
   - Identify and escalate active malicious logic (e.g., RCE/backdoors, obfuscated remote code loading, dynamic execution).
