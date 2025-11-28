@@ -1,0 +1,41 @@
+{
+  "name": "trust-no-code-audit-ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "vite",
+    "server": "node server.js",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "NODE_ENV=production PORT=3100 node server.js",
+    "start:win": "set NODE_ENV=production && set PORT=3100 && node server.js",
+    "docker:build": "docker build -t trust-no-code-audit .",
+    "docker:run": "docker run -d -p 3100:3100 --name trust-no-code-audit trust-no-code-audit",
+    "docker:stop": "docker stop trust-no-code-audit && docker rm trust-no-code-audit",
+    "docker:logs": "docker logs -f trust-no-code-audit",
+    "cleanup": "node -e \"fetch('http://localhost:3101/api/bootstrap/cleanup', {method:'POST'}).then(r=>r.json()).then(console.log)\"",
+    "cleanup:temp": "node -e \"const fs=require('fs');const p=require('path');const d=p.join(__dirname,'temp');fs.readdirSync(d).filter(f=>f.endsWith('.bootstrap.md')).forEach(f=>fs.unlinkSync(p.join(d,f)));console.log('Temp cleaned')\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^6.21.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.10"
+  }
+}

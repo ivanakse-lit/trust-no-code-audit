@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output (we rebuild in Docker)
+dist/
+
+# Development files
+.git/
+.gitignore
+*.md
+!README.md
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test and config files not needed in container
+*.test.js
+*.spec.js
+coverage/
+.env.local
+.env.development
+
+# Temp folder and bootstrap files
+temp/
+*.bootstrap.md
+*.bootstrap.txt
+bootstrap-*.md
+bootstrap-*.txt

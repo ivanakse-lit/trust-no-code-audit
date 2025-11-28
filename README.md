@@ -15,6 +15,38 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 ### Production Readiness Audit
 [AI_PRODUCTION_AUDIT_PROMPT.md](./AI_PRODUCTION_AUDIT_PROMPT.md) version 1.0.0 — A production deployment readiness assessment that evaluates performance, reliability, operational resilience, configuration management, and CI/CD maturity to identify launch blockers and hardening priorities.
 
+## Active Audits
+
+### Nexus Platform - Production Readiness
+- **Bootstrap File:** [bootstrap_ai_production_nexus.md](./bootstrap_ai_production_nexus.md)
+- **Audit Type:** Production Readiness Assessment
+- **Project:** Nexus Platform Complete (2025-11-18)
+- **Project Path:** `b:\Dev\CrimsonStark\Nexus-Platform-Complete-2025-11-18`
+- **Reports Folder:** `b:\Dev\reports`
+- **Status:** ✅ Completed (2025-11-24)
+- **Report:** `b:\Dev\reports\Production_Readiness_Report_2025-11-24.md`
+- **Key Finding:** Needs Hardening (3.2/5.0) - 3 critical blockers identified
+
+### Nexus Platform - Architecture Audit
+- **Bootstrap File:** [bootstrap_ai_architecture_nexus.md](./bootstrap_ai_architecture_nexus.md)
+- **Audit Type:** Architecture Review & Refactoring Roadmap
+- **Project:** Nexus Platform Complete (2025-11-18)
+- **Project Path:** `b:\Dev\CrimsonStark\Nexus-Platform-Complete-2025-11-18`
+- **Reports Folder:** `b:\Dev\reports`
+- **Status:** ✅ Completed (2025-11-24)
+- **Report:** `b:\Dev\reports\Architecture_Audit_Report_2025-11-24.md`
+- **Key Finding:** C+ Grade (2.8/5.0) - God component, flat structure, needs refactoring
+
+### Nexus Platform - Security Audit
+- **Bootstrap File:** [bootstrap_ai_security_nexus.md](./bootstrap_ai_security_nexus.md)
+- **Audit Type:** Offline Security Audit (Read-Only, Evidence-Based)
+- **Project:** Nexus Platform Complete (2025-11-18)
+- **Repository Path:** `b:\Dev\CrimsonStark\Nexus-Platform-Complete-2025-11-18`
+- **Reports Folder:** `b:\Dev\reports`
+- **Status:** ✅ Completed (2025-11-24)
+- **Reports:** `Security & Architecture.md` + `security_findings.json`
+- **Key Finding:** HIGH RISK - 3 critical issues (hardcoded secrets, DB credentials, weak JWT)
+
 ## Why "Trust No Code"
 - Never execute untrusted code; assume all code can be malicious until proven otherwise.
 - Run audits on a local snapshot with network access disabled.
