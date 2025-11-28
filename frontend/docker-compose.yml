@@ -1,0 +1,52 @@
+# =============================================================================
+# Trust No Code Audit Dashboard - Docker Compose Configuration
+# =============================================================================
+# 
+# Quick Start:
+#   docker-compose up -d
+#
+# Access the dashboard at: http://localhost:3100
+#
+# To access local files from within the container, add volume mounts below.
+# =============================================================================
+
+version: '3.8'
+
+services:
+  trust-no-code:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trust-no-code-audit
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    environment:
+      - NODE_ENV=production
+      - PORT=3100
+    volumes:
+      # Mount your projects directory for auditing
+      # Modify these paths to match your system:
+      #
+      # Windows example:
+      # - C:/Projects:/mnt/projects:ro
+      #
+      # Linux/Mac example:
+      # - /home/user/projects:/mnt/projects:ro
+      #
+      # Add as many mounts as needed:
+      - ./reports:/app/reports
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3100/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "com.trust-no-code.description=AI Audit Dashboard"
+      - "com.trust-no-code.version=1.0.0"
+
+# Optional: Add a named volume for persistent reports
+volumes:
+  reports:
+    driver: local
