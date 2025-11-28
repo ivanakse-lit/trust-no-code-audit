@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.windsurfrules
+
+# Temp files
+temp/
+*.tmp
+
+# Bootstrap generated files (temporary)
+*.bootstrap.md
+*.bootstrap.txt
+bootstrap-*.md
+bootstrap-*.txt
