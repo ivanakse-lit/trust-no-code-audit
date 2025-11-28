@@ -69,6 +69,7 @@ The local Express server provides file system access:
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/api/health` | GET | Health check |
+| `/api/drives` | GET | List drives (Windows) or mount points (Linux/Mac) |
 | `/api/validate` | POST | Validate path (read/write) |
 | `/api/browse` | GET | List directory contents |
 | `/api/reports` | GET | List report files in folder |
@@ -131,3 +132,27 @@ docker run -d -p 3100:3100 yourusername/trust-no-code-audit
 - **Backend**: Express.js, CORS
 - **Rendering**: react-markdown for report viewing
 - **Container**: Docker with multi-stage build
+
+## Cross-Platform Support
+
+The dashboard runs on **Windows, Linux, and macOS**.
+
+| Feature | Windows | Linux/Mac |
+|---------|---------|-----------|
+| Frontend UI | ✅ | ✅ |
+| Report Viewer | ✅ | ✅ |
+| Path Validation | ✅ | ✅ |
+| File Browser | ✅ | ✅ |
+| Drive/Mount Listing | ✅ Drives (C:, D:) | ✅ Mount points (/, /home, /mnt) |
+
+### Docker (Linux Container)
+
+When running in Docker, the folder browser shows:
+- Common mount points: `/`, `/home`, `/mnt`, `/opt`, `/var`, `/tmp`
+- User home directory from `$HOME`
+- All subdirectories under `/mnt` (for volume mounts)
+
+Mount your host directories to `/mnt/` for easy access:
+```bash
+docker run -v /host/projects:/mnt/projects trust-no-code-audit
+```
