@@ -186,10 +186,58 @@ app.delete('/api/bootstrap/:filename', async (req, res) => {
   }
 })();
 
-// List available drives (Windows)
+// List available drives/mount points (cross-platform)
 app.get('/api/drives', async (req, res) => {
   try {
-    // Use wmic to get all drives including network drives
+    const platform = process.platform;
+    
+    // Linux/Mac: Return common mount points
+    if (platform !== 'win32') {
+      const commonPaths = ['/', '/home', '/mnt', '/opt', '/var', '/tmp'];
+      const drives = [];
+      
+      for (const mountPoint of commonPaths) {
+        try {
+          await fs.stat(mountPoint);
+          drives.push(mountPoint);
+        } catch {
+          // Mount point doesn't exist
+        }
+      }
+      
+      // Also check for user home directory
+      const homeDir = process.env.HOME;
+      if (homeDir && !drives.includes(homeDir)) {
+        try {
+          await fs.stat(homeDir);
+          drives.push(homeDir);
+        } catch {
+          // Home doesn't exist
+        }
+      }
+      
+      // Check /mnt subdirectories (common for Docker volume mounts)
+      try {
+        const mntContents = await fs.readdir('/mnt');
+        for (const dir of mntContents) {
+          const fullPath = `/mnt/${dir}`;
+          try {
+            const stats = await fs.stat(fullPath);
+            if (stats.isDirectory()) {
+              drives.push(fullPath);
+            }
+          } catch {
+            // Skip inaccessible
+          }
+        }
+      } catch {
+        // /mnt doesn't exist or not readable
+      }
+      
+      return res.json({ drives: [...new Set(drives)].sort() });
+    }
+    
+    // Windows: Use wmic to get all drives including network drives
     const { exec } = await import('child_process');
     const { promisify } = await import('util');
     const execAsync = promisify(exec);
