@@ -4,6 +4,8 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 
 **⚡ New to these audits? See [QUICKSTART.md](./QUICKSTART.md) for copy-paste examples.**
 
+**🎨 Want a visual interface? Jump to [Frontend Dashboard](#frontend-dashboard-optional) for setup instructions.**
+
 ## Available Audits
 
 ### Security Audit
@@ -137,6 +139,134 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
    - Identify key production-related files (configs, dockerfiles, error handlers, build scripts)
    - Run all 5 expert analysis passes
    - Deliver the comprehensive production readiness report with critical launch blockers
+
+---
+
+## Frontend Dashboard (Optional)
+
+A modern React-based UI for configuring audits and viewing reports. The dashboard provides:
+- Visual audit type selection (Security, Architecture, Production Readiness)
+- Path configuration with validation and file browser
+- One-click bootstrap prompt generation
+- Report viewer with syntax highlighting
+- Recent reports quick access
+
+### Getting Started
+
+#### 1. Clone the Repository
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/trust-no-code-audit.git
+cd trust-no-code-audit
+```
+
+#### 2. Install Dependencies
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+```
+
+#### 3. Run the Application
+
+**Option A: Development Mode (Recommended for Local Use)**
+
+```bash
+# Start both frontend and backend servers
+npm run dev
+```
+
+This starts:
+- Frontend dev server at **http://localhost:3100**
+- Backend API server at **http://localhost:3101**
+
+**Option B: Production Mode**
+
+```bash
+# Build the production bundle
+npm run build
+
+# Start production server (Linux/Mac)
+npm start
+
+# Or for Windows
+npm run start:win
+```
+
+**Option C: Docker (Recommended for Distribution)**
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Or build and run manually
+docker build -t trust-no-code-audit .
+docker run -d -p 3100:3100 --name trust-no-code-audit trust-no-code-audit
+```
+
+#### 4. Using the Dashboard
+
+1. **Select Audit Type** — Choose Security, Architecture, or Production Readiness
+2. **Configure Paths**:
+   - **Codebase Path**: Path to the project you want to audit
+   - **Reports Folder**: Where audit reports will be saved
+3. **Copy Bootstrap Prompt** — Click "Copy to Clipboard" to get the complete audit prompt
+4. **Paste in AI IDE** — Use the prompt in Windsurf, Cursor, or any AI-powered IDE
+5. **View Reports** — Navigate to the Reports tab to browse and view generated audit files
+
+### Frontend Screenshots
+
+#### Audit Configuration
+![Audit Configuration Screen](./screenshots/audit-config.png)
+*Select audit type, configure paths, and generate bootstrap prompts with one click*
+
+#### Path Browser
+![Path Browser Interface](./screenshots/path-browser.png)
+*Visual file system browser with path validation and drive selection*
+
+#### Report Viewer
+![Report Viewer](./screenshots/report-viewer.png)
+*Browse and view audit reports with Markdown rendering and syntax highlighting*
+
+#### Dashboard Overview
+![Dashboard Overview](./screenshots/dashboard-overview.png)
+*Modern dark-themed UI optimized for developer workflows*
+
+> **Note**: The frontend is running at http://localhost:3100. You can capture screenshots using the browser preview above or by opening the URL directly in your browser.
+
+### Docker Volume Mounting
+
+To access your local projects and reports from within the Docker container:
+
+```bash
+# Mount your projects directory (read-only for security)
+docker run -d -p 3100:3100 \
+  -v /path/to/projects:/mnt/projects:ro \
+  -v /path/to/reports:/mnt/reports \
+  --name trust-no-code-audit \
+  trust-no-code-audit
+```
+
+Or edit `docker-compose.yml`:
+
+```yaml
+volumes:
+  - C:/Projects:/mnt/projects:ro    # Windows
+  - /home/user/projects:/mnt/projects:ro  # Linux/Mac
+  - ./reports:/mnt/reports
+```
+
+### Tech Stack
+
+- **Frontend**: React 18, Vite, TailwindCSS, React Router, Lucide Icons
+- **Backend**: Express.js (file system API for path validation and browsing)
+- **Rendering**: react-markdown with syntax highlighting
+
+For detailed frontend documentation, see [frontend/README.md](./frontend/README.md).
 
 ---
 
