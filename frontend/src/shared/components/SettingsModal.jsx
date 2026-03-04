@@ -6,7 +6,7 @@ import { X, Save, RotateCcw } from 'lucide-react';
  */
 function SettingsModal({ isOpen, onClose }) {
   const [settings, setSettings] = useState({
-    auditsBasePath: 'B:\\Dev\\Audits',
+    auditsBasePath: '',
     defaultReportsFolder: '',
     autoSuggestReports: true,
   });
@@ -32,7 +32,7 @@ function SettingsModal({ isOpen, onClose }) {
 
   const handleReset = () => {
     const defaults = {
-      auditsBasePath: 'B:\\Dev\\Audits',
+      auditsBasePath: '',
       defaultReportsFolder: '',
       autoSuggestReports: true,
     };

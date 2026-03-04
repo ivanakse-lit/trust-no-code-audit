@@ -62,6 +62,6 @@ export const AUDIT_COLOR_CLASSES = {
  * Get the audits folder path for prompt file references
  */
 export const getAuditsBasePath = () => {
-  // This will be configured based on the actual installation path
-  return 'B:\\Dev\\Audits';
+  // Returns empty string — user configures this in Settings on first run
+  return '';
 };
