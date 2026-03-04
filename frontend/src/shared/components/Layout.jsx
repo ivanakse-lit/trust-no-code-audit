@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Shield, FileText, Settings } from 'lucide-react';
 import SettingsModal from './SettingsModal';

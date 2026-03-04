@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { FileText, Download, Copy, Check } from 'lucide-react';
 import MarkdownViewer from './MarkdownViewer';

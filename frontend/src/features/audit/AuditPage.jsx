@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FolderOpen, ExternalLink } from 'lucide-react';
 import { useAuditConfig } from './hooks/useAuditConfig';

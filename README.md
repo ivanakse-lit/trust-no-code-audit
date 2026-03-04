@@ -9,7 +9,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
 ## Available Audits
 
 ### Security Audit
-[AI_SECURITY_AUDIT_PROMPT.md](./AI_SECURITY_AUDIT_PROMPT.md) version 1.3.0 — An offline, evidence-first security audit that detects backdoors, secrets, risky client patterns, third‑party tracking, and **AI-generated threats ("vibe code" attacks)** with anti-hallucination validation.
+[AI_SECURITY_AUDIT_PROMPT.md](./AI_SECURITY_AUDIT_PROMPT.md) version 1.4.0 — An offline, evidence-first security audit that detects backdoors, secrets, risky client patterns, third‑party tracking, **AI-generated threats ("vibe code" attacks)**, and **prompt injection vulnerabilities in AI-enabled applications** with anti-hallucination validation.
 
 ### Architecture Audit
 [AI_ARCHITECTURE_AUDIT_PROMPT.md](./AI_ARCHITECTURE_AUDIT_PROMPT.md) version 1.0.0 — An iterative architecture review that analyzes layering, domain modeling, component structure, type safety, and testability to produce actionable refactoring roadmaps.
@@ -41,6 +41,7 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
   10. Report Writer
   11. Quality Assurance & Validation (runs after detection experts)
   12. **AI-Generated Threat Analyst** ("vibe code" detection)
+  13. **Prompt Injection & LLM Security Analyst** (Lethal Trifecta detection)
 - **Quality Assurance & Validation Expert** validates critical security findings to:
   - Verify all findings cite specific file paths and line numbers
   - Ensure IOCs (domains, IPs, URLs, ports) are extracted from code, not invented
@@ -56,6 +57,14 @@ A collection of Mixture-of-Experts (MoE) orchestration prompts for comprehensive
   - Ransomware patterns (file encryption, data exfiltration)
   - Credential harvesting and brute force infrastructure
   - C2 beacons, reverse shells, self-modifying code
+- **Prompt Injection & LLM Security Detection** (Expert 13):
+  - **Lethal Trifecta** — auto-Critical when an agent ingests untrusted external content AND has tool access AND exposes exfiltration vectors
+  - Missing prompt sanitization layers (regex detection, markdown/XML escaping, `[FLAGGED:*]` marking)
+  - Missing XML trust boundaries (`<external_data trust="untrusted">`) and recency-bias instruction placement
+  - Missing LLM guard pre-filter; fail-open guard defaults (should be fail-safe "suspicious")
+  - Fail-open access controls (empty allowlist → allow-all)
+  - Unprotected system prompt / configuration files (missing PreToolUse hooks)
+  - Chain attack vectors through logs or persistent memory
 - Purpose‑first report: begins with an Application Purpose & Intended Use Summary derived from repo metadata to flag unexpected inclusions.
 - All security findings are evidence-based with explicit file/line citations.
 - **Post-flight verification:** Confirms both Markdown and JSON reports written successfully with file paths and sizes.
@@ -368,7 +377,7 @@ GitMetadata: auto
 
 ## Educational goals
 - Help teams audit AI‑assisted and fast‑paced "vibe coding" projects responsibly.
-- **Security:** Encourage secure defaults, secret hygiene, safe client patterns, and consent-gated telemetry.
+- **Security:** Encourage secure defaults, secret hygiene, safe client patterns, consent-gated telemetry, and prompt injection defenses for AI-enabled applications.
 - **Architecture:** Promote clean layering, domain-driven design, type safety, and testable code structures.
 - Foster iterative improvement through expert-guided analysis and actionable refactoring roadmaps.
 

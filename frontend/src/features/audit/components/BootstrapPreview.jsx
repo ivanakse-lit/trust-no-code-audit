@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { Copy, Check, AlertCircle } from 'lucide-react';
 import { getAuditsBasePath } from '../constants';

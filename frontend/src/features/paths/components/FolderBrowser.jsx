@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { X, Folder, FolderOpen, ChevronRight, ArrowUp, HardDrive, Loader2, AlertCircle } from 'lucide-react';
 

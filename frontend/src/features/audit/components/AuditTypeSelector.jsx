@@ -1,3 +1,4 @@
+import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { AUDIT_TYPES } from '../constants';
 import AuditTypeCard from './AuditTypeCard';

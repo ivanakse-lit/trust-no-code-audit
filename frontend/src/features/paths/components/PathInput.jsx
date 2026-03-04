@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { Check, X, Loader2, FolderOpen, FolderSearch } from 'lucide-react';
 import { usePathValidation, useRecentPaths } from '../hooks/usePathValidation';

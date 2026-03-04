@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FolderOpen, RefreshCw, Clock, X, Star, StarOff } from 'lucide-react';
 import { PathInput } from '../paths';
 import { useReports } from './hooks/useReports';

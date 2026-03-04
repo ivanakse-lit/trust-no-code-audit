@@ -4,6 +4,7 @@ node_modules/
 # Build outputs
 dist/
 build/
+.vite/
 
 # Environment files
 .env
@@ -34,3 +35,11 @@ temp/
 *.bootstrap.txt
 bootstrap-*.md
 bootstrap-*.txt
+
+#Docs
+SECOND-BRAIN-SECURITY.md
+SECOND-BRAIN-SECURITY.md
+bootstrap_ai_security_nexus.md
+bootstrap_ai_architecture_nexus.md
+bootstrap_ai_production_nexus.md   
+BACKLOG.md 
